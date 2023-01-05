@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jpa
+    username: root
+    password: root123
+  #Below property provides the table creation strategy
+  jpa:
+    hibernate:
+      #Below property means while creating the table columns, pls use  our  entity class variable names as it is.
+      #naming:
+        #physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    properties:
+      hibernate:
+        #Below peoperty is for converting jpa method to queries.
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        #Below property is for formatting the sql queries when showing in the log/console
+        format_sql : true
+    show-sql: true
+
+
