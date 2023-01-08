@@ -3,11 +3,16 @@ package com.hasithat.springdatajpa.repository;
 import com.hasithat.springdatajpa.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-
-public interface ProductRepository  extends JpaRepository<Product , Integer> {
+/*
+* If we need to maintain revisions then we need to extend our repository from RevisionRepository also.
+* RevisionRepository<Product , Integer, Integer> Here first argument means entity class, second argument means
+* data type of entity class id, third argument means revision records data type
+* */
+public interface ProductRepository  extends JpaRepository<Product , Integer> , RevisionRepository<Product , Integer, Integer> {
     List<Product> findByName(String name);
 
     List<Product> findByNameAndPrice(String name, double price);
