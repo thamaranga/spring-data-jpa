@@ -1,6 +1,7 @@
 package com.hasithat.springdatajpa;
 
 import com.hasithat.springdatajpa.common.AuditorAwareimpl;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 //Below annotation is also related to maintaining revision
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
+/*
+* Enabling jasypt  encryption/decryption
+* */
+@EnableEncryptableProperties
 public class SpringDataJpaApplication {
 
 	@Bean
