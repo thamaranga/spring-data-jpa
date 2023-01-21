@@ -1,5 +1,6 @@
 package com.hasithat.springdatajpa.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
@@ -17,6 +18,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 /*Below annotation is for handling preprocessing logics  for setting values to
 createdBy, createdTime , lastModifiedBy , lastModifiedTime fields.
 */
@@ -45,5 +47,11 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedTime;
 
-
+    public Product(int id,String name, double price, String description, String productType) {
+        this.id=id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.productType = productType;
+    }
 }
