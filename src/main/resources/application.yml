@@ -3,8 +3,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/jpa
     username: root
-    password: root123
-    #password: ENC(2b+9eryMe3kMX0PG1HfJqXlTw4zVEKk35BCIH7e7Y+qficNAqNjzpo2kaIEMv3pj)
+    #password: root123
+    password: ENC(2b+9eryMe3kMX0PG1HfJqXlTw4zVEKk35BCIH7e7Y+qficNAqNjzpo2kaIEMv3pj)
   #Below property provides the table creation strategy
   jpa:
     hibernate:

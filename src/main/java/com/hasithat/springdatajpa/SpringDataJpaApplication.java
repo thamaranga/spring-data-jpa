@@ -4,6 +4,7 @@ import com.hasithat.springdatajpa.common.AuditorAwareimpl;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.envers.repository.support.EnversRevisionRepositoryFactoryBean;
@@ -19,6 +20,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 * Enabling jasypt  encryption/decryption
 * */
 @EnableEncryptableProperties
+/*Enabling spring boot default caching*/
+@EnableCaching
 public class SpringDataJpaApplication {
 
 	@Bean
