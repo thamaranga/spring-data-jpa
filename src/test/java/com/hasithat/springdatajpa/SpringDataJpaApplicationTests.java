@@ -126,6 +126,7 @@ class SpringDataJpaApplicationTests {
 
 
 	private String convertObjectAsString(Object object) {
+
 		try {
 			return new ObjectMapper().writeValueAsString(object);
 		} catch (Exception e) {

@@ -5,6 +5,7 @@ import com.hasithat.springdatajpa.entity.Product;
 import com.hasithat.springdatajpa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
@@ -33,8 +34,8 @@ public class ProductService {
      * Instead of below annotations here we can use @CachePut annotation also.
      *  Which means while saving data into db  insert into products cache also.
      * */
-    @Caching(evict = {
-            @CacheEvict(value = "products", allEntries = true)})
+    @CacheEvict(value = "products", allEntries = true)
+    //@CachePut(value = "products")
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
@@ -49,7 +50,7 @@ public class ProductService {
     }
 
 
-    @Cacheable(cacheNames = "product", key = "#id")
+    @Cacheable(cacheNames = "products")
     public Optional<Product> getProductById(int id) {
         return productRepository.findById(id);
     }
@@ -74,15 +75,12 @@ public class ProductService {
         return productRepository.findByDescription(productDesc);
     }
 
-    /* Below annotation means while updating a product, delete products cache completely
-    and delete only relevant product from product cache using id as the key.
-     * @CachePut annotation means while updating data into db  insert into cache also.
-     * Since we have mentioned the cacheNames with above @CacheConfig annotation, here no
-     * need to mention it with below annotation also.*/
-    //@CachePut(cacheNames = "product" , key="#product.id")
-    @Caching(evict = {
-            @CacheEvict(value = "product", key = "#id"),
-            @CacheEvict(value = "products", allEntries = true)})
+    /* Below annotation means while updating a product, delete relevant product from
+    products cache completely using id as the key. Or else we can use CachePut annotation
+    also here. Then it will update the cache accordingly. */
+
+    @CacheEvict(value = "products", key = "#id")
+    //@CachePut(value = "products")
     public CustomResponseDTO updateProduct(int id, Product product) {
         CustomResponseDTO<Product> customResponseDTO = new CustomResponseDTO<>();
         Optional<Product> existingProductOptional = this.getProductById(id);
@@ -104,12 +102,11 @@ public class ProductService {
         return customResponseDTO;
     }
 
-    /*Below annotation means while deleting a product, delete products cache completely
-    and delete only relevant product from product cache using id as the key.
+    /*Below annotation means while deleting a product, delete relevant product cache completely
+    from product cache using id as the key.
      */
-    @Caching(evict = {
-            @CacheEvict(value = "product", key = "#id"),
-            @CacheEvict(value = "products", allEntries = true)})
+
+    @CacheEvict(value = "products", key = "#id")
     public String delete(int id) {
         productRepository.deleteById(id);
         return "Successfully Deleted";
